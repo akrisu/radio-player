@@ -58,7 +58,9 @@ export const useStationStore = create<StationSlice>((set, get) => ({
   getSortedData: () => {
     switch (get().sortBy) {
       case "popularity":
-        return [...get().data].sort(sortByPopularityDESC);
+        return [...get().data]
+          .filter(filterUnreliable)
+          .sort(sortByPopularityDESC);
 
       case "default":
       default:
